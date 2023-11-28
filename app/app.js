@@ -5,7 +5,6 @@ const express = require("express")
 const bodyParser = require("body-parser")
 const app = express()
 
-
 //라우딩
 const home = require("./src/routes/home")
 
@@ -23,5 +22,4 @@ app.use(bodyParser.urlencoded({extended : true}))
 app.use("/", home); // use == 미들 웨어를 등록해주는 메서드
 
 
-module.exports = app;
-
+module.exports = app

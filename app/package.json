@@ -38,6 +38,7 @@
     "finalhandler": "^1.2.0",
     "forwarded": "^0.2.0",
     "fresh": "^0.5.2",
+    "fs-extra": "^11.1.1",
     "function-bind": "^1.1.2",
     "get-intrinsic": "^1.2.2",
     "gopd": "^1.0.1",
