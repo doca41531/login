@@ -1,11 +1,9 @@
 "use strict"
-
+const path = require('path');
 const fs = require("fs");
+const filePath = path.join(__dirname, 'first-json.json');
+const jsonData = require('./first-json.json');
 
-const users = {
-    id : ["woorimIT", "나개발", "김팀장"],
-    pw : ["1234", "1234", "123456"]
-}
 
 const output = {
     hello : (req,res) => {
@@ -22,12 +20,13 @@ const process = {
     login : (req, res) => {
         const id = req.body.id;
         const pw = req.body.pw;
-        const data = fs.readFileSync("test.dat", "utf8");
-        const login_data = `${id} ${pw}`
-        if(data == login_data){
-                return res.json({
-                    success : true
-                })
+        if(jsonData.id.includes(id)){
+                const idx = jsonData.pw.indexOf(id)
+                if (jsonData.pw[idx] = pw){
+                    return res.json({
+                        success : true
+                    })
+                }
         }
         return res.json({
             success : false,
@@ -38,18 +37,19 @@ const process = {
 
 const sign_process = {
     sign : (req, res) => {
+        const fileData = fs.readFileSync(filePath);
+        const names = JSON.parse(fileData);
         const sign_id = req.body.id;
         const sign_pw = req.body.pw;
-
-        if(users.id.includes(sign_id)){
+        if(names.id.includes(sign_id)){
             return res.json({
                 success : false,
                 msg : "이미 존재하는 아이디 입니다",
             })
         }else{
-            const file = "test.dat";
-            const data_write = `${sign_id} ${sign_pw}`;
-            fs.writeFile(file, data_write, (err) => console.log(err));
+            names.id.push(sign_id)
+            names.pw.push(sign_pw)
+            fs.writeFileSync(filePath, JSON.stringify(names));
             return res.json({
                 success : true,
             })
